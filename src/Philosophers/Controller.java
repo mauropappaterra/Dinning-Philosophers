@@ -60,7 +60,7 @@ public class Controller {
     private Button bttnReset; // Value injected by FXMLLoader
 
     @FXML // fx:id="lblScoreConfucius"
-    private Label lblScoreConfucius; // Value injected by FXMLLoader
+    public Label lblScoreConfucius; // Value injected by FXMLLoader
 
     @FXML // fx:id="imgSocrates"
     private ImageView imgSocrates; // Value injected by FXMLLoader
@@ -84,13 +84,13 @@ public class Controller {
     private Label lblDescartes; // Value injected by FXMLLoader
 
     @FXML // fx:id="lblScoreDescartes"
-    private Label lblScoreDescartes; // Value injected by FXMLLoader
+    public Label lblScoreDescartes; // Value injected by FXMLLoader
 
     @FXML // fx:id="imgIJLogo"
     private ImageView imgIJLogo; // Value injected by FXMLLoader
 
     @FXML // fx:id="lblScoreHobbes"
-    private Label lblScoreHobbes; // Value injected by FXMLLoader
+    public Label lblScoreHobbes; // Value injected by FXMLLoader
 
     @FXML // fx:id="imgTable"
     private ImageView imgTable; // Value injected by FXMLLoader
@@ -111,7 +111,7 @@ public class Controller {
     private ImageView chopstick0; // Value injected by FXMLLoader
 
     @FXML // fx:id="lblScoreZizek"
-    private Label lblScoreZizek; // Value injected by FXMLLoader
+    public Label lblScoreZizek; // Value injected by FXMLLoader
 
     @FXML // fx:id="chopstick3"
     private ImageView chopstick3; // Value injected by FXMLLoader
@@ -202,12 +202,20 @@ public class Controller {
     ReentrantLock[] chopsticks = new ReentrantLock[5]; // Array of chopsticks. Chopsticks are locks.
     String aux = "";
 
+    //int counterHobbes = 100;
+    //int counterConfucius = 0;
+    //int counterDescarters = 0;
+    //int counterZizek = 0;
+    //int counterSocrates = 0;
+
     @FXML
     void clickStart(ActionEvent event) { // Start Simulation
 
         bttnReset.setDisable(true);
         bttnStop.setDisable(false);
         bttnStart.setDisable(true);
+
+        //lblScoreHobbes.setText("x " + 1);
 
         aux = txtConsole.getText();
         txtConsole.setText("INITIALIZING SIMULATION...\n\n" + txtConsole.getText());
@@ -219,22 +227,15 @@ public class Controller {
     }
 
     @FXML
-    void clickStop(ActionEvent event) {
+    void clickStop(ActionEvent event) { // I DO NOT UNDERSTAND WHY THIS IS NOT WORKING
 
         bttnReset.setDisable(false);
         bttnStop.setDisable(true);
 
         try {
 
-            Thread.sleep(500000);
-            for (Philosopher philosopher : philosophers) {
-                philosopher.isFull.set(true);
-            }
-
             executorService.shutdown();
-
-            Thread.sleep(1000); // finish all threads
-
+            Thread.sleep(50000); // finish all threads
 
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -246,10 +247,35 @@ public class Controller {
     void clickReset(ActionEvent event) {
 
         bttnReset.setDisable(true);
+        bttnStop.setDisable(true);
         bttnStart.setDisable(false);
 
         txtConsole.clear();
 
+        noodlesConfucius.setVisible(false);
+        noodlesHobbes.setVisible(false);
+        noodlesSocrates.setVisible(false);
+        noodlesZizek.setVisible(false);
+        noodlesDescartes.setVisible(false);
+
+        chopstickConfucius1.setVisible(false);
+        chopstickConfucius2.setVisible(false);
+        chopstickHobbes1.setVisible(false);
+        chopstickHobbes0.setVisible(false);
+        chopstickSocrates4.setVisible(false);
+        chopstickSocrates0.setVisible(false);
+        chopstickZizek3.setVisible(false);
+        chopstickZizek4.setVisible(false);
+        chopstickDescartes2.setVisible(false);
+        chopstickDescartes3.setVisible(false);
+
+        chopstick0.setVisible(true);
+        chopstick1.setVisible(true);
+        chopstick2.setVisible(true);
+        chopstick3.setVisible(true);
+        chopstick4.setVisible(true);
+
+        initialize();
     }
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
@@ -385,6 +411,7 @@ public class Controller {
             Thread.sleep(generateRandom.nextInt(5000));
 
             this.updateGUI("eating");
+
         }
 
         private boolean pickupLeftChopstick() throws InterruptedException {
@@ -434,29 +461,34 @@ public class Controller {
             }
         }
 
-        private void updateGUI(String action){
+        private void updateGUI(String action)throws InterruptedException {
 
             if (action.equals("eating")){
 
                 if (this.getName().equals("Thomas Hobbes")){
                     noodlesHobbes.setVisible(true);
-                    //lblScoreHobbes.setText("x " + );
+                    //Thread.sleep(1000);
+                    //lblScoreHobbes.setText("x " + this.getPlatesEaten()); // I DO NOT UNDERSTAND WHY THIS IS NOT WORKING
                 }
 
                 if (this.getName().equals("Confucius")){
                     noodlesConfucius.setVisible(true);
+                   //lblScoreConfucius.setText("x " + this.getPlatesEaten());
                 }
 
                 if (this.getName().equals("René Descartes")){
                     noodlesDescartes.setVisible(true);
+                    //lblScoreDescartes.setText("x " + this.getPlatesEaten());
                 }
 
                 if (this.getName().equals("Slavoj Žižek")){
                     noodlesZizek.setVisible(true);
+                    //lblScoreZizek.setText("x " + this.getPlatesEaten());
                 }
 
                 if (this.getName().equals("Socrates")){
                     noodlesSocrates.setVisible(true);
+                    //lblScoreSocrates.setText("x " + this.getPlatesEaten());
                 }
 
                 aux = txtConsole.getText();
