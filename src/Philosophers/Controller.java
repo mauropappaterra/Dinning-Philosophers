@@ -1,6 +1,8 @@
 package Philosophers;
 
 import javafx.event.ActionEvent; // All JavaFX imports
+
+import java.io.IOException;
 import java.net.URL;
 import java.util.Random;
 import java.util.ResourceBundle;
@@ -211,6 +213,18 @@ public class Controller {
     @FXML
     void clickStart(ActionEvent event) { // Start Simulation
 
+        imgSmallNoodleCup0.setVisible(true);
+        imgSmallNoodleCup1.setVisible(true);
+        imgSmallNoodleCup2.setVisible(true);
+        imgSmallNoodleCup3.setVisible(true);
+        imgSmallNoodleCup4.setVisible(true);
+
+        chopstick0.setVisible(true);
+        chopstick1.setVisible(true);
+        chopstick2.setVisible(true);
+        chopstick3.setVisible(true);
+        chopstick4.setVisible(true);
+
         bttnReset.setDisable(true);
         bttnStop.setDisable(false);
         bttnStart.setDisable(true);
@@ -221,16 +235,22 @@ public class Controller {
         txtConsole.setText("INITIALIZING SIMULATION...\n\n" + txtConsole.getText());
 
         for (int j = 0; j < 5; j++){
-            executorService.execute(philosophers[j]); // start all threads MINE
+            executorService.execute(philosophers[j]); // start all threads
         }
 
     }
 
     @FXML
-    void clickStop(ActionEvent event) { // I DO NOT UNDERSTAND WHY THIS IS NOT WORKING
-
-        bttnReset.setDisable(false);
+    public synchronized void clickStop(ActionEvent event) throws IOException { // I DO NOT UNDERSTAND WHY THIS IS NOT WORKING
+/*
+        bttnReset.setDisable(9false);
         bttnStop.setDisable(true);
+
+            for (Philosopher philosopher : philosophers){
+                philosopher.stop();
+            }
+
+
 
         try {
 
@@ -240,12 +260,12 @@ public class Controller {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
+            */
     }
 
-    @FXML
+        @FXML
     void clickReset(ActionEvent event) {
-
+/*
         bttnReset.setDisable(true);
         bttnStop.setDisable(true);
         bttnStart.setDisable(false);
@@ -269,14 +289,12 @@ public class Controller {
         chopstickDescartes2.setVisible(false);
         chopstickDescartes3.setVisible(false);
 
-        chopstick0.setVisible(true);
-        chopstick1.setVisible(true);
-        chopstick2.setVisible(true);
-        chopstick3.setVisible(true);
-        chopstick4.setVisible(true);
-
         initialize();
+                    */
     }
+
+
+
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
@@ -338,7 +356,6 @@ public class Controller {
         assert noodlesDescartes != null : "fx:id=\"noodlesDescartes\" was not injected: check your FXML file 'dinning.fxml'.";
         assert lblBTYB != null : "fx:id=\"lblBTYB\" was not injected: check your FXML file 'dinning.fxml'.";
 
-
         for (int i = 0; i < 5; i++){
             chopsticks [i] = new ReentrantLock(); // fill chopsticks array
         }
@@ -348,6 +365,22 @@ public class Controller {
         philosophers[2] = new Philosopher("René Descartes", chopsticks[2], chopsticks[3]);
         philosophers[3] = new Philosopher("Slavoj Žižek", chopsticks[3], chopsticks[4]);
         philosophers[4] = new Philosopher("Socrates", chopsticks[4], chopsticks[0]);
+
+        imgSmallNoodleCup0.setVisible(false);
+        imgSmallNoodleCup1.setVisible(false);
+        imgSmallNoodleCup2.setVisible(false);
+        imgSmallNoodleCup3.setVisible(false);
+        imgSmallNoodleCup4.setVisible(false);
+
+        chopstick0.setVisible(false);
+        chopstick1.setVisible(false);
+        chopstick2.setVisible(false);
+        chopstick3.setVisible(false);
+        chopstick4.setVisible(false);
+
+        bttnReset.setVisible(false);
+        bttnStop.setVisible(false);
+        bttnStart.setText("Start Simulation");
 
     }
 
