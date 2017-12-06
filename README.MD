@@ -1,0 +1,3 @@
+<h1>The Dinning Philosphers</h1>
+
+ This is my solution to the <a href="https://en.wikipedia.org/wiki/Dining_philosophers_problem">Dinning Philosophers Problem</a>. This short program deals with multi-threading programming and synchronization issues (deadlocks and source starvation). I wrote this program on Java and created a GUI interface using JavaFX and other graphic design tools such as Adobe Photoshop.

@@ -1,0 +1,20 @@
+<component name="ArtifactManager">
+  <artifact type="javafx" name="Philosophers">
+    <output-path>$PROJECT_DIR$/out/artifacts/Philosophers</output-path>
+    <properties id="javafx-properties">
+      <options>
+        <option name="appClass" value="Philosophers.Main" />
+        <option name="description" value="" />
+        <option name="htmlParamFile" value="" />
+        <option name="paramFile" value="" />
+        <option name="title" value="The Dinning Philosophers" />
+        <option name="vendor" value="" />
+      </options>
+    </properties>
+    <root id="root">
+      <element id="archive" name="Philosophers.jar">
+        <element id="module-output" name="Philosophers" />
+      </element>
+    </root>
+  </artifact>
+</component>
